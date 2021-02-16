@@ -1,1 +1,1 @@
-# slinker-django
+# slinker-django (a short url website in python django)
