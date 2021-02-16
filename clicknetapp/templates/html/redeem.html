@@ -1,0 +1,163 @@
+{% extends 'html/header.html' %}
+{% block head %}
+<title>Payment</title>
+{% load static %}
+<!-- <link rel="stylesheet" href={% static "css/bootstrap.css" %}> -->
+
+{% endblock %}
+
+
+{% block body%}
+
+<br>
+    <div class="container">
+        <form class="form-horizontal"  method="POST" id="redeemsubmitform" onsubmit=" document.getElementById('redeemsubmit').innerHTML = 'Please Wait...';submit.disabled = true; return true; ">
+
+        <div class="accordion" id="accordionExample">
+                <div class="card m-b-0">
+                    <div class="card-header text-center" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                            <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>
+                            <span>Redeem Money</span>
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" >
+                      <div class="card-body">
+                            <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Redeem Your Money :</h4>
+                                                    <br/><div class="row">
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-4 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-cyan text-center">
+                                <h3 class="text-white">{{ blc|floatformat:2 }}</h3>
+                                <h6 class="text-white">Available Balance</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-4 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-danger text-center">
+                                {% if redeempanding is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ redeempanding|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Pending Withdrawn</h6>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Column -->
+                    <div class="col-md-6 col-lg-4 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-success text-center">
+                                {% if redeemsuccess is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ redeemsuccess|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Success Withdraw</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                    <div id="error"
+                                                    style="margin: 10px ;
+                                                    border-radius: 20px;
+                                                   color: #D8000C;
+                                                   line-height: 40px;
+                                                   text-align: center;
+                                                background-color: #FFD2D2;">{{ error }}
+                                                   </div>
+                                                   <div id="error"
+                                                    style="margin: 10px ;
+                                                    border-radius: 20px;
+                                                   color: rgb(0, 216, 29);
+                                                   line-height: 40px;
+                                                   text-align: center;
+                                                background-color: rgb(217, 255, 210);">{{ success }}
+                                                   </div>
+                                                    <div class="form-group m-t-20">
+                                                            <label>User Name</label>
+                                                            <input type="text" readonly value="{{ user.username}}" class="form-control date-inputmask" required name="username" placeholder="Student Name Here">
+                                                        </div>
+                                                        {% csrf_token %}
+
+                                                            <div class="form-group m-t-20">
+                                                                <label >Payment Method</label>
+                                                                <div >
+                                                                    <select  class="form-control date-inputmask" name="payment" id="payment" required  style="height: 36px;width: 100%;" onchange="changeform()">
+                                                                            <option hidden selected value="">Payment Methord</option>
+                                                                            {% for item in data %}
+                                                                            <option value="{{item.id}}">{{item.brand}}</option>
+                                                                            {% endfor %}
+
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group m-t-20" id="paytm" style="display:none">
+                                                                <label id="cform">Enter Paytm No.<small class="text-muted"></small></label>
+                                                                <input type="number" class="form-control date-inputmask" id="paytmno" autocomplete="off" placeholder="Paytm No.">
+                                                            </div>
+                                                            <div class="form-group m-t-20" id="upi" style="display:none">
+                                                                <label id="cform">Enter Your UPI Id<small class="text-muted"></small></label>
+                                                                <input type="text" class="form-control date-inputmask" id="upiid" autocomplete="off" placeholder="UPI Id">
+                                                            </div>
+                                                            <div class="form-group m-t-20" id="paypal" style="display:none">
+                                                                <label id="cform">Enter Paypal Email<small class="text-muted"></small></label>
+                                                                <input type="email" class="form-control date-inputmask" id="paypalemail" autocomplete="off" placeholder="Paypal Email">
+                                                            </div>
+                                                            <div class="form-group m-t-20" id="bank" style="display:none">
+                                                                <label id="cform">Enter Bank Account No.<small class="text-muted"></small></label>
+                                                                <input type="number" class="form-control date-inputmask" id="bankno" autocomplete="off" placeholder="Bank Account No.">
+                                                            </div>
+                                                            <div class="form-group m-t-20" id="ifsc" style="display:none">
+                                                                <div class="m-t-20">
+                                                                <label id="cform">Enter Bank IFSC Code<small class="text-muted"></small></label>
+                                                                <input type="text" class="form-control date-inputmask" id="ifsccode" autocomplete="off" placeholder="IFSC Code">
+                                                            </div>
+                                                            </div>
+                                                            <div class="form-group m-t-20">
+                                                                <label>Redeem Money Value(Minimum 100Rs.)<small class="text-muted"></small></label>
+                                                                <input type="number" min='100' class="form-control date-inputmask" required id="amount"  name="amount" placeholder="Value">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <button type="submit" class="btn btn-primary" id="redeemsubmit" name="submit">Submit</button>
+                                                            </div>
+
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+             <br>
+</form>
+        </div>
+
+<br/>
+<footer  class="footer text-center">
+All Rights Reserved by Click.net <a href="../">Click.net</a>.
+</footer>
+</div>
+
+<script>
+
+$('#redeemsubmitform').submit(function(){
+    var amount = document.getElementById('amount').value;
+    if (amount < 100){
+        alert('minimum redeem is 100Rs.')
+    }
+})
+
+</script>
+{% endblock %}

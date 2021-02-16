@@ -1,0 +1,272 @@
+{% extends 'html/header.html' %}
+
+{% block head %}
+
+
+{% load static %}
+
+<title>Dashboard</title>
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Sales Cards  -->
+        <!-- ============================================================== -->
+                <div class="row">
+
+             <!-- Column -->
+            <div class="col-md-12 col-lg-12 col-xlg-12">
+                <div class="card">
+
+                    <div class="box text-center" style="padding: 30px 0 50px 0;">
+                            <h3 class="text-black" style="padding: 5px;" >Short Your Url</h3>
+                       <div id="hidethis" style="display: unset;">
+
+                            <form method="POST" id="shortenadmin">
+                        <input style="border: none;
+                        border-radius: 20px;
+                        background: rgba(154, 209, 144, 0.637);
+                        padding: 10px;
+                        width: 80%;
+                        " type="url" pattern="https?://.+" placeholder="Enter Your Url" name="url" id="url" autocomplete="off" required/>
+                        <label id="error" style="margin: 10px ;
+                        border-radius: 20px;
+                       color: #D8000C;
+                       line-height: 40px;
+                       text-align: center;
+                       width: 80%;
+                    background-color: #FFD2D2;"></label><br/>
+                        <button class="btn btn-success btn-sm" style="margin: 10px;padding: 10px;" id="submitadmin" type="submit">Short Url</button>
+                        </form>
+                        </div>
+
+                        <div id="showthis" style="display: none">
+                            <div id="showadmin">
+                             <input style="border: none;
+                        border-radius: 20px;
+                        background: rgba(154, 209, 144, 0.637);
+                        padding: 10px;
+                        width: 80%;
+                        " type="url" pattern="https?://.+" id="surl" readonly placeholder="Enter Your Url" name="url" required/>
+                        <br/>
+                        <label id="error1" style="margin: 10px ;
+                        border-radius: 20px;
+                       color: #D8000C;
+                       line-height: 40px;
+                       text-align: center;
+                       width: 80%;
+                    background-color: #FFD2D2;"></label><br/>
+                        <button onclick="copy()" class="btn btn-success" id="copyme" onmousemove="hidetoltip()" ><i class=" fa fa-copy " style="font-size:32px;padding: 0px;color:white;"></i></button>
+                        <a class="btn btn-success btn-sm" id="short_another" style="text-align: right; margin: 5px;padding: 10px;color:white;" onclick="short_another()">Short Another Url</a>
+                        <br/>
+
+                           </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+                <!-- ============================================================== -->
+                <!-- Sales chart -->
+                <!-- ============================================================== -->
+<div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-md-flex align-items-center">
+                                        <div style="text-align:center;">
+                                                <caption><h1 >Your Short Url List</h1></caption><br/>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<div >
+
+    <form id="geturlform" style="display:none"  method="POST">
+
+   <input type="submit" value="Refresh">
+ </form>
+
+     <div id="forTable">
+</div>
+<div id="loading-image" class="container text-center"><img style="width:100px; height:100px;" src="/static/img/ajaxloader.gif"/></div>
+
+
+</div>
+<br/><br/><br/>
+<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-md-flex align-items-center">
+                                    <div>
+                                        <h4 class="card-title">Overview Analysis</h4>
+                                        <h5 class="card-subtitle">Overview of Your Account</h5>
+                                    </div>
+                                </div><br/>
+                                <div class="row">
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-cyan text-center">
+                                {% if totalclicks is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ totalclicks }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Total Click</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-info text-center">
+                                {% if clickearning is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ clickearning|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Earning Through Clicks</h6>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-success text-center">
+                                {% if blc is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ blc|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Wallet Balance</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-danger text-center">
+                                {% if lifetimeearning is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ lifetimeearning|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Lifetime Earning</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-warning text-center">
+                                {% if totalredeem is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ totalredeem|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Total Withdrawal</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-danger text-center">
+                                {% if redeempanding is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ redeempanding|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Panding Withdrawal</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-cyan text-center">
+                                {% if redeemsuccess is None %}
+                                <h3 class="text-white">0</h3>
+                                {% else %}
+                                <h3 class="text-white">{{ redeemsuccess|floatformat:2 }}</h3>
+                                {% endif %}
+                                <h6 class="text-white">Success Withdrawal</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="box bg-info text-center">
+                                <h3 class="text-white">{{ referblc|floatformat:2 }}</h3>
+                                <h6 class="text-white">Referral Earning</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<br/><br/>
+
+
+                                                <canvas id="myChart" style="width:100%;height: 400px;"></canvas>
+<br/><br/>
+
+
+
+
+
+
+
+
+                    <!-- ============================================================== -->
+                    <!-- Recent comment and chats -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer text-center">
+                        All Rights Reserved by <a href="https://wrappixel.com">Click.net</a>.
+                    </footer>
+                <!-- End footer -->
+                <!-- ============================================================== -->
+            </div>
+
+
+{% endblock %}

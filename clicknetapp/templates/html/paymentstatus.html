@@ -1,0 +1,52 @@
+{% extends 'html/header.html' %}
+{% block head %}
+<title>Payment Histori</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                            <caption><h1 style="text-align:center">Your Payment History</h1></caption><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th style="text-align:center">No.</th>
+                <th style="text-align:center">Amount</th>
+                <th style="text-align:center">Payment Type</th>
+                <th style="text-align:center">Date</th>
+                <th style="text-align:center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in payments %}
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center">₹ {{ i.amount }}</td>
+                <td style="text-align:center">{{ i.paymentmode.brand }}</td>
+                <td style="text-align:center">{{ i.redeem_date }}</td>
+                {% if i.status == 0 %}
+                <td style="color:red;text-align:center;">Panding</td>
+                {% elif i.status == 1 %}
+                <td style="color:green;text-align:center;">Success</td>
+                {% else %}
+                <td style="color:red;text-align:center;">Cancel</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+</tbody>
+
+    </table>
+    </div>
+{% endblock %}

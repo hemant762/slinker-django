@@ -1,0 +1,160 @@
+
+<html>
+<head>
+{% load static %}
+    <title>Sign Up</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href={% static "css/signupfont.css" %}>
+
+    <!-- Main css -->
+    <link rel="stylesheet" href={% static "css/signup.css" %}>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+        .preloader {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           z-index: 9999;
+           background-image: url('/static/img/loader.gif');
+           background-repeat: no-repeat;
+           background-color: #FFF;
+           background-position: center;
+        }
+        </style>
+</head>
+<body>
+        <div class="preloader"></div>
+
+    <div class="main">
+
+        <section class="signup">
+
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form" >
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input required minlength="4" autocomplete="off" value="{{uname}}" maxlength="50" type="text" class="form-input" name="uname" id="name" placeholder="User Name"/>
+                            <div
+                         style="margin: 10px 0px;
+                        color: #D8000C;
+                        line-height: 40px;
+                        text-align: center;
+    background-color: #FFD2D2;">{{ error1 }}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input required minlength="4" autocomplete="off" maxlength="50" value="{{email}}" type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                            <div
+                         style="margin: 10px 0px;
+                        color: #D8000C;
+                        line-height: 40px;
+                        text-align: center;
+    background-color: #FFD2D2;">{{ error2 }}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input maxlength="50" type="text" onkeyup="refercheck()" class="form-input" name="refer" autocomplete="off" value="{{refercode}}" id="refer" placeholder="Refer Code (optional)"/>
+                            <div id="valid" style="margin: 10px 0px;
+                        color: green;
+                        text-align: center;"></div>
+                            <div
+                         style="margin: 10px 0px;
+                        color: #D8000C;
+                        line-height: 40px;
+                        text-align: center;
+    background-color: #FFD2D2;">{{ error4 }}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input required minlength="8" maxlength="50" value="{{pwd}}" type="password" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input required minlength="8" maxlength="50" value="{{rpwd}}" type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <div
+                         style="margin: 10px 0px;
+                        color: #D8000C;
+                        line-height: 40px;
+                        text-align: center;
+    background-color: #FFD2D2;">{{ error3 }}
+                        </div>
+                        </div>
+
+                        <div class="form-group" style="text-align: center;">
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="{% url 'termsofus' %}" class="term-service">Terms of service</a></label>
+                        </div>
+
+                        <img src="{% static 'img/loader.gif' %}" id="gif" style="display: none; margin: 0 auto; width: 80px; ">
+
+                        <div class="form-group" id="submit">
+                            <input  type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script> 
+        var app_vars = {"language":"en_US"} 
+        </script>
+    <script src={% static "js/jquery.min.js" %}></script>
+    <script src={% static "js/script.main.js" %}></script>
+    <script src={% static "js/main.js" %}></script>
+    <script>
+    $(document).ready(function(){
+        {% if request.GET.refer %}
+        {% for i in refer %}
+        if( "{{ request.GET.refer }}" === "{{i.refercode}}" ){
+                    $('#valid').append('Referred By {{i.username}}');
+                }
+        {% endfor %}
+        {% endif %}
+        });
+
+
+    function refercheck(){
+        var input_value = document.getElementById('refer').value;
+        document.getElementById("valid").innerHTML = '';
+        {% for i in refer %}
+        if( input_value == "{{i.refercode}}" ){
+            $('#valid').append('Referred By {{i.username}}');
+        }
+
+
+
+        {% endfor %}
+    }
+        $(window).load(function() {
+			   $('.preloader').fadeOut('slow');
+
+			   {% if request.GET.refer %}
+			       $('input[name="refer"]').val("{{ request.GET.refer }}");
+			   {% endif %}
+
+
+			});
+    $('#signup-form').submit(function() {
+        var referl = $('#refer').val();
+        // if(referl.length === 0){
+        //     $('#refer').val('1');
+        // }
+        $('#gif').css('display', 'flex');
+        $('#submit').css('display', 'none');
+    });
+    </script>
+</body>
+</html>

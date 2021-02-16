@@ -1,0 +1,179 @@
+<html>
+
+<head>
+{% load static %}
+<title>Terms Of Use</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href={% static "css/styles.css" %} />
+<style>
+        .preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-image: url('/static/img/loader.gif');
+            background-repeat: no-repeat;
+            background-color: #FFF;
+            background-position: center;
+            }
+            </style>
+</head>
+<body class="inner-page">
+
+
+        <div class="preloader"></div>
+
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo-image" href="../"><img src={% static 'img/logo.png' %} /></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a>
+                </li>
+
+                    <li>
+                        <a href="{% url 'payout_rate' %}"><i class="fa fa-inr"></i> Payout Rates</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}"><i class="fa fa-user-plus"></i> Sign Up</a>
+                    </li>
+
+                            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<!-- Header -->
+<header>
+    <div class="section-inner">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Terms of Use</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="services">
+    <div class = 'container'>
+<p>This Site allows publishers to shorten any URL and earn income by sharing the shortened URL. Advertising is shown to the viewer on their way to their destination URL. By using the Site's service, you agree that the Site includes advertisements on the shortened URLs which is a requirement for the Site to operate.</p>
+<br/>
+<p>By using the Site's service, you agree not to:</p>
+<br/>
+<ol>
+    <li>Shrink any website URLs that contain adult material.</li>
+    <li>Place shortened links on websites containing content that may be threatening, harassing, defamatory, obscene, contain any viruses, Trojan horses, worms, time bombs, cancelbots or contain software which may cause damage to the viewer or the Site's server</li>
+    <li>Shrink URLs which redirect to websites containing the above mentioned content</li>
+    <li>Use the Service for any illegal or unauthorised purpose including but not limited to copyright content, child pornography, threatening, defaming, stalking, abuse, harassing or violating any person's or entity's legal rights</li>
+    <li>Offer an incentive or beg a visitor to click on your shortened links</li>
+    <li>Spam any website, forum or blog with the Site's links</li>
+    <li>Bring fake/automated traffic of any kind to your links. This will get your account terminated automatically by our system. Manipulation of our system to gain views is also not allowed. This includes iframes, redirects, bots, proxies, traffic exchange, Email traffic, PTC traffic, hitleap, jingling, Click4Click, VPN, etc</li>
+    <li>Automatically redirect to your shortened url from a website. The viewer must click on the link him/herself</li>
+    <li>You can not generate another URL shortener website link</li>
+    <li>Open your shortened URLs using an iframe or popups/popunder</li>
+    <li>Click on your own shortened urls to generate revenue. We reserve the right to not pay for the revenue generated</li>
+    <li>Create 'redirect loops' with click.net URLs or similar services to generate revenue. We reserve the right to not pay for the revenue generated</li>
+    <li>Transmit files that contain viruses, spyware, adware, trojans or other harmful code</li>
+    <li>Interfere with other publishers which are using the Site's service</li>
+    <li>Create multiple accounts. Only one account per person is allowed</li>
+    <li>Abuse from the contact system such as sending messages regarding payments before due dates, threatening to change service and/or providing false or incomplete data.</li>
+    <li>Advertise click.net on traffic exchange websites and PTC websites</li>
+    <li>You are not allow to create multiple account under your own referral url and use this accounts to generate referral commission for your top account</li>
+
+</ol>
+<br/>
+<h3>ONLY VALID CLICKS WILL BE COUNT</h3>
+<p><strong>Valid Clicks-</strong></p>
+<ul>
+    <li>Click must be unique - Unique visitor in 24 hrs</li>
+    <li>Click should be completed Correctly, Done.</li>
+    <li>Valid Clicks will take Only 5 Minute to Add in your dashboard with Earnings</li>
+
+</ul>
+<p><strong>Invalid Clicks-</strong></p>
+<ul>
+    <li>Self Click - if you click yourself on Link that you shorten then this click will be caunted as Invalid click</li>
+    <li>Unique Click - If your click is not unique then this click will also invalid click</li>
+    <li>Incomplete Click - Note that our link has total 2 page of click.net and other one is Your Main Link, So visitor must drive through all this pages otherwise the click will be invalid</li>
+
+</ul>
+
+<p style="color:red;"><strong>Note- VPN or Self Click user's will be suspended*</strong></p>
+</div>
+</section>
+
+<footer>
+
+
+
+<div class="copyright-container">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 bottom-menu">
+            <ul class="list-inline">
+                <li><a href="{% url 'privacy' %}">Privacy Policy</a>
+                </li>
+                <li><a href="{% url 'termsofus' %}">Terms of Use</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-4 social-links">
+            <ul class="list-inline">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a>
+            </li>
+            </ul>
+        </div>
+        <div class="col-sm-4 copyright">
+            <div>Copyright &copy; Click.net 2019</div>
+
+        </div>
+    </div>
+</div>
+</div>
+</footer>
+
+<script> 
+    var app_vars = {"language":"en_US"} 
+    </script>
+<script src={% static "js/ads.js" %}></script>
+<script src={% static "js/script.main.js" %}></script>
+<script>
+        $(window).load(function() {
+           $('.preloader').fadeOut('slow');
+        });
+        </script>
+
+
+
+</body>
+
+
+</html>

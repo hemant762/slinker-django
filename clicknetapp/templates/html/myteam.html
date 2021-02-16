@@ -1,0 +1,44 @@
+{% extends 'html/header.html' %}
+{% block head %}
+<title>My Team</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                            <caption><h1 style="text-align:center">Your Referral Team</h1></caption><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th style="text-align:center">No.</th>
+                <th style="text-align:center">Referral User</th>
+                <th style="text-align:center">Referral Earnings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in team %}
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center">{{ i.username }}</td>
+                {% for j in i.balance_set.all %}
+                <td style="text-align:center">{{ j.referbyblc }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+</tbody>
+
+    </table>
+    </div>
+{% endblock %}

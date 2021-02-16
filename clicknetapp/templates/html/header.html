@@ -1,0 +1,605 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    {% load static %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" >
+    <link rel="stylesheet" href={% static "css/bootstrap.css" %}>
+    <link rel="stylesheet" type="text/css" href={% static "assets/extra-libs/multicheck/multicheck.css" %}>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href={% static "assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" %} rel="stylesheet">
+
+    <link href={% static "dist/css/style.min.css" %} rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href={% static "assets/libs/select2/dist/css/select2.min.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/jquery-minicolors/jquery.minicolors.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/quill/dist/quill.snow.css" %}>
+  <link href={% static "dist/css/style.min.css" %} rel="stylesheet">
+
+  <!-- form  -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https:/resources/demos/style.css">
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/select2/dist/css/select2.min.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/jquery-minicolors/jquery.minicolors.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" %}>
+  <link rel="stylesheet" type="text/css" href={% static "assets/libs/quill/dist/quill.snow.css" %}>
+  <link href={% static "dist/css/style.min.css" %} rel="stylesheet">
+  <style>
+        .preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-image: url('/static/img/loader.gif');
+            background-repeat: no-repeat;
+            background-color: #FFF;
+            background-position: center;
+            }
+            </style>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- form -->
+    <link rel="stylesheet" href={% static "css/datatable.css" %}>
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/tabledata.js" %}"></script>
+
+
+        {% block head %}
+{% endblock %}
+</head>
+
+<body>
+        <div class="preloader"></div>
+   <div id="main-wrapper">
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="{% url 'dashboard' %}">
+                        <!-- Logo icon -->
+                        <b class="logo-icon p-l-10">
+                            <i class="mdi mdi-link-variant" style="font-size:20px;"></i>
+                            <!-- Dark Logo icon -->
+                            <!--<img src={% static "assets/images/logo-icon.png" %} alt="homepage" class="light-logo" />-->
+
+                        </b>
+                        <!--End Logo icon -->
+                         <!-- Logo text -->
+                        <span class="logo-text">
+                             <!-- dark Logo text -->
+                             <!--<img src={% static "assets/images/logo-text.png" %} alt="homepage" class="light-logo" />-->
+                             <strong><strong>CLICK.NET</strong></strong>
+                             <i class="mdi mdi-link-variant" style="font-size:20px;"></i>
+
+                        </span>
+                        <!-- Logo icon -->
+                        <!-- <b class="logo-icon"> -->
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
+                        <!-- </b> -->
+                        <!--End Logo icon -->
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                   <ul class="navbar-nav float-left mr-auto">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                       <!--<li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>-->
+                       <!--     <form class="app-search position-absolute">-->
+                       <!--         <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>-->
+                       <!--     </form>-->
+                       <!-- </li>-->
+                    </ul>
+                    <ul class="navbar-nav float-right">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="">
+                                            {% for i in d %}
+                                             <!-- Message -->
+                                            <a href="javascript:void(0)" class="link border-top">
+                                                <div class="d-flex no-block align-items-center p-10">
+                                                    <span class="btn btn-success btn-circle"><i class="mdi mdi-bell font-12"></i></span>
+                                                    <div class="m-l-10">
+                                                        <h5 class="m-b-0">{{ i.title }}</h5>
+                                                        <span class="mail-desc">{{ i.body }}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            {% endfor %}
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="{% url 'logout' %}"><i class="mdi mdi-logout" style="font-size:24px;"></i></a></li>
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
+
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <!--<li class="nav-item dropdown">-->
+                        <!--    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={% static "assets/images/users/1.jpg" %} alt="user" class="rounded-circle" width="31"></a>-->
+                        <!--    <div class="dropdown-menu dropdown-menu-right user-dd animated">-->
+                        <!--        <a class="dropdown-item" href="{% url 'profile' %}"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>-->
+                        <!--        <a class="dropdown-item" href="{% url 'redeem' %}"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance :  ₹ <strong>{{ blc|floatformat:2 }}</strong> </a>-->
+                        <!--        <a class="dropdown-item" href="{% url 'account' %}"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>-->
+                        <!--        <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>-->
+                        <!--    </div>-->
+                        <!--</li>-->
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../dashboard/" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../redeem/" aria-expanded="false"><i class="mdi mdi-wallet"></i><span class="hide-menu">My Balance :  ₹ <strong>{{ blc|floatformat:2 }}</strong></span> </a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../account/" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu">Account Setting</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../profile/" aria-expanded="false"><i class="mdi mdi-account-star"></i><span class="hide-menu">My Profile</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../refer/" aria-expanded="false"><i class="fa fa-handshake"></i><span class="hide-menu"> Refer Now</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../myurls/" aria-expanded="false"><i class="mdi mdi-link"></i><span class="hide-menu">My URL'S</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../myteam/" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">My Team</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../paymentstatus/" aria-expanded="false"><i class="mdi mdi-history"></i><span class="hide-menu">Payment History</span></a></li>
+
+
+
+
+
+
+
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <div class="page-wrapper">
+
+    <!-- All Jquery -->
+
+    <!-- ============================================================== -->
+
+    <script src={% static "assets/libs/jquery/dist/jquery.min.js" %}></script>
+
+
+    <!-- Bootstrap tether Core JavaScript -->
+
+    <script src={% static "assets/libs/popper.js/dist/umd/popper.min.js" %}></script>
+    <script src={% static "assets/libs/bootstrap/dist/js/bootstrap.min.js" %}></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src={% static "assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js" %}></script>
+    <script src={% static "assets/extra-libs/sparkline/sparkline.js" %}></script>
+    <!--Wave Effects -->
+    <script src={% static "dist/js/waves.js" %}></script>
+    <!--Menu sidebar -->
+    <script src={% static "dist/js/sidebarmenu.js" %}></script>
+    <!--Custom JavaScript -->
+    <script src={% static "dist/js/custom.min.js" %}></script>
+    <!-- this page js -->
+    <script src={% static "assets/extra-libs/multicheck/datatable-checkbox-init.js" %}></script>
+    <script src={% static "assets/extra-libs/multicheck/jquery.multicheck.js" %}></script>
+    <script src={% static "assets/extra-libs/DataTables/datatables.min.js" %}></script>
+    <script src={% static "assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js" %}></script>
+    <!-- <script src={% static "dist/js/pages/mask/mask.init.js" %}></script> -->
+    <script src={% static "assets/libs/select2/dist/js/select2.full.min.js" %}></script>
+    <script src={% static "assets/libs/select2/dist/js/select2.min.js" %}></script>
+    <script src={% static "assets/libs/jquery-asColor/dist/jquery-asColor.min.js" %}></script>
+    <script src={% static "assets/libs/jquery-asGradient/dist/jquery-asGradient.js" %}></script>
+    <script src={% static "assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js" %}></script>
+    <script src={% static "assets/libs/jquery-minicolors/jquery.minicolors.min.js" %}></script>
+    <script src={% static "assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" %}></script>
+    <script src={% static "assets/libs/quill/dist/quill.min.js" %}></script>
+    <script src={% static "js/canvas.js" %}></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.5/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+    <script type="text/javascript" src="http://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="http://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    {% block body %}
+        {% endblock %}
+
+
+
+        <script>
+
+$(document).ready(function(){
+    $.ajax({
+            type:'GET',
+            url: '/createchart/',
+            data:{
+                
+            },
+            success: function(d){
+                
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'bar',
+
+    data: {
+        labels: d['datedata'],
+        datasets: [{
+            label: "Click",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: d['clickdata'],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        title: {
+            display: true,
+            text: 'Last Days Click Analytics'
+        },
+    }
+});
+
+                },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            },
+            beforeSend: function () {
+                    $("#loading-image").show();
+                    
+
+                },
+                complete: function () {
+                    $("#loading-image").hide();
+                    
+                }
+        });
+})
+</script>
+
+        <script>
+         $(window).load(function() {
+           $('.preloader').fadeOut('slow');
+        });
+        </script>
+
+        <script>
+    $(".select2").select2();
+
+    $('.demo').each(function() {
+    $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            position: $(this).attr('data-position') || 'bottom left',
+
+            change: function(value, opacity) {
+                if (!value) return;
+                if (opacity) value += ', ' + opacity;
+                if (typeof console === 'object') {
+                    console.log(value);
+                }
+            },
+            theme: 'bootstrap'
+        });
+
+    });
+
+    $( function() {
+      $( "#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    } );
+
+        </script>
+
+<script>
+        $(document).on('submit','#shortenadmin',function(e){
+            e.preventDefault();
+            document.getElementById("submitadmin").innerHTML = "Please Wait.."
+            $("#submitadmin").attr("disabled", true);
+            $( "#error" ).empty();
+            $( "#error1" ).empty();
+
+            $.ajax({
+                type:'POST',
+                url: '/shorturladmin/',
+                data:{
+                    url:$('#url').val(),
+                    csrfmiddlewaretoken : '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(d){
+                    if (Object.keys(d).length == 2){
+                        $('#error').append(d['urlerror']);
+                        $('#shortenadmin input').val(d['url']);
+                        document.getElementById("submitadmin").innerHTML = "Short Url"
+                        $("#submitadmin").attr("disabled", false);
+                        $('#geturlform').submit()
+                    }
+                    else{
+                        if (Object.keys(d).length == 4){
+                            $('#hidethis').css('display', 'none');
+                            $('#showthis').css('display', 'unset');
+                            $('#error1').append(d['success']);
+                            $('#showadmin input').val(d['url']);
+                            $('#error1').css('background-color', 'rgb(210, 255, 214)');
+                            $('#error1').css('color', 'green');
+                            $('#geturlform').submit()
+                        }
+                        else {
+                            $('#hidethis').css('display', 'none');
+                            $('#showthis').css('display', 'unset');
+                            $('#error1').append(d['error']);
+                            $('#showadmin input').val(d['url']);
+                            $('#error1').css('background-color', 'rgb(255, 210, 210)');
+                            $('#error1').css('color', 'red');
+                            $('#geturlform').submit()
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+            });
+        });
+        </script>
+        <script>
+function setTooltip(message) {
+  $('#copyme,#show').tooltip('hide')
+    .attr('data-original-title', message)
+    .tooltip('show');
+}
+
+function hideTooltip() {
+  setTimeout(function() {
+    $('#copyme,#show').tooltip('hide');
+  }, 2000);
+}
+
+function hidetoltip(){
+    $('#copyme').tooltip('hide');
+}
+
+function copy() {
+  /* Get the text field */
+  var copyText = document.getElementById("surl");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+  setTooltip('Copied!');
+  hideTooltip();
+
+}
+
+
+function short_another(){
+    document.getElementById("submitadmin").innerHTML = "Short Url"
+    $("#submitadmin").attr("disabled", false);
+    document.getElementById('url').value = '';
+    $( "#error" ).empty();
+    $('#hidethis').css('display', 'unset');
+    $('#showthis').css('display', 'none');
+}
+</script>
+<script>
+function changeform() {
+  var x = document.getElementById("payment").value;
+  if ( x == 1 ){
+  $('#paytm').css('display', 'unset');
+  $('#upi').css('display', 'none');
+  $('#paypal').css('display', 'none');
+  $('#bank').css('display', 'none');
+  $('#ifsc').css('display', 'none');
+  $("#paytmno").attr("required", true);
+  $("#upiid").attr("required", false);
+  $("#paypalemail").attr("required", false);
+  $('#paytmno').attr('name', 'paddress');
+  $('#upiid').removeAttr('name');
+  $('#paypalemail').removeAttr('name');
+  }
+  if ( x == 2 ){
+  $('#paytm').css('display', 'none');
+  $('#upi').css('display', 'unset');
+  $('#paypal').css('display', 'none');
+  $('#bank').css('display', 'none');
+  $('#ifsc').css('display', 'none');
+  $("#paytmno").attr("required", false);
+  $("#upiid").attr("required", true);
+  $("#paypalemail").attr("required", false);
+  $('#upiid').attr('name', 'paddress');
+  $('#paytmno').removeAttr('name');
+  $('#paypalemail').removeAttr('name');
+  }
+  if ( x == 3 ){
+  $('#paytm').css('display', 'none');
+  $('#upi').css('display', 'none');
+  $('#paypal').css('display', 'unset');
+  $('#bank').css('display', 'none');
+  $('#ifsc').css('display', 'none');
+  $("#paytmno").attr("required", false);
+  $("#upiid").attr("required", false);
+  $("#paypalemail").attr("required", true);
+  $('#paypalemail').attr('name', 'paddress');
+  $('#upiid').removeAttr('name');
+  $('#paytmno').removeAttr('name');
+  }
+  if ( x == 4 ){
+  $('#paytm').css('display', 'none');
+  $('#upi').css('display', 'none');
+  $('#paypal').css('display', 'none');
+  $('#bank').css('display', 'unset');
+  $('#ifsc').css('display', 'unset');
+  $("#paytmno").attr("required", false);
+  $("#upiid").attr("required", false);
+  $("#paypalemail").attr("required", false);
+  $("#bankno").attr("required", false);
+  $("#ifsccode").attr("required", false);
+  $('#bankno').attr('name', 'paddress');
+  $('#ifsccode').attr('name', 'ifsc');
+  $('#upiid').removeAttr('name');
+  $('#paypalemail').removeAttr('name');
+  $('#paytmno').removeAttr('name');
+  }
+
+}
+</script>
+<script>
+    $(document).ready(function() {
+    var table = $('#example').DataTable( {
+         "order": [[ 0, "desc" ]],
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true,
+        bInfo: false,
+        "searching": false,
+        "paging": true,
+        columnDefs: [{ }],
+});
+
+
+    var table = $('#alluser').DataTable( {
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true,
+        bInfo: false,
+        "searching": false,
+        "paging": true,
+        columnDefs: [{ }],
+
+    } );
+
+    } );
+
+
+var addSerialNumber = function () {
+    var i = 0
+    $('table tbody tr').each(function(index) {
+        $(this).find('td:nth-child(1)').html(index+1);
+    });
+};
+
+addSerialNumber();
+
+</script>
+<script>
+
+$(document).ready(function(){
+
+    $('#geturlform').submit();
+
+});
+
+
+$('#geturlform').submit(function(event){
+		event.preventDefault();
+        $.ajax({
+            type:'POST',
+            url: '/geturl/',
+            data:{
+                csrfmiddlewaretoken : "{{ csrf_token }}"
+            },
+            success: function(d){
+                // alert(d['data'][0].username)
+                createtable(d);
+                var table = $('#example').DataTable( {
+                        "order": [[ 0, "desc" ]],
+                        rowReorder: {
+                        selector: 'td:nth-child(2)'
+                        },
+                        responsive: true,
+                        bInfo: false,
+                        "searching": false,
+                        "paging": true,
+                        columnDefs: [{ }],
+                        });
+
+                                },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            },
+            beforeSend: function () {
+                    $("#loading-image").show();
+                    $("#forTable").hide();
+
+                },
+                complete: function () {
+                    $("#loading-image").hide();
+                    $("#forTable").show();
+                }
+        });
+});
+function createtable(d){
+    var eTable="<table id = 'example' class='display nowrap' style='width:100%'><thead><tr><th style = 'text-align:center'>No.</th><th style = 'text-align:center'>Short Url</th><th style = 'text-align:center'>Click</th><th style = 'text-align:center'>Total Earning</th><th style = 'text-align:center'>Share</th></tr></thead><tbody>"
+
+    for(var i=0; i<d['data'].length; i++)
+  {
+    var id = i+1 ;
+    eTable += "<tr>";
+    eTable += "<td style = 'text-align:center'>"+id+"</td>";
+    eTable += "<td style = 'text-align:center'><a target='_blank' href="+d['data'][i].shorturl+">"+d['data'][i].shorturl+"</a></td>";
+    eTable += "<td style = 'text-align:center'>"+d['data'][i].click+"</td>";
+    eTable += "<td style = 'text-align:center'><strong>"+d['data'][i].earning.toFixed( 2 )+"</strong></td>";
+    eTable += "<td style = 'text-align:center'><a href='https://wa.me/?text="+d['data'][i].shorturl+"' target='_blank'><i class='mdi mdi-share-variant' style='font-size:24px;color:25D366;'></i></a></td>";
+    eTable += "</tr>";
+  }
+  eTable +="</tbody></table>";
+  $('#forTable').html(eTable);
+}
+
+</script>
+</body>
+
+</html>

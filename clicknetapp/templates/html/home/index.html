@@ -1,0 +1,566 @@
+
+<html>
+<head>
+    {% load static %}
+    <title>CLICK.NET</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href={% static "css/styles.css" %} />
+<style>
+.preloader {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 9999;
+   background-image: url('/static/img/loader.gif');
+   background-repeat: no-repeat;
+   background-color: #FFF;
+   background-position: center;
+}
+</style>
+</head>
+<body class="home">
+        <div class="preloader"></div>
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo-image" href="../"><img src={% static 'img/logo.png' %} /></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a>
+                </li>
+
+                    <li>
+                        <a href="{% url 'payout_rate' %}"><i class="fa fa-inr"></i> Payout Rates</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}"><i class="fa fa-user-plus"></i> Sign Up</a>
+                    </li>
+
+                            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<!-- Header -->
+<header class="shorten" id="shorturl">
+    <br/></br/><br/>
+    <div class="section-inner">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in wow zoomIn" data-wow-delay="0.3s">Shorten URLs and</div>
+                <div class="intro-heading wow pulse" data-wow-delay="2.0s">earn money</div>
+                <div class="row wow rotateInUpLeft" data-wow-delay="0.3s">
+                    <div class="col-sm-8 col-sm-offset-2">
+<div id="hide" style="display: unset;">
+<form method="POST"  id="shorten" class="form-inline">
+<div class="form-group">
+    <input type="url" autocomplete="off" pattern="https?://.+"  name="url" placeholder="Your URL Here" required="required" class="form-control input-lg" id="url"/>
+    <button id="submit" class="btn-captcha" style="display: flex;"  type="submit"><img src={% static "img/right-arrow.png" %} alt=""/></button>
+    <div id="error"
+    style="margin: 10px ;
+    border-radius: 20px;
+   color: #D8000C;
+   line-height: 40px;
+   text-align: center;
+background-color: #FFD2D2;">
+   </div>
+</div>
+</form>
+
+</div>
+<div id="show" style="display: none">
+    <div id="shorten" class="form-inline">
+        <div class="form-group">
+                
+            <input type="url"  name="url" placeholder="Your URL Here" required="required" class="form-control input-lg" id="surl"/>
+            <button onclick="copy()" class="btn-captcha" id="copyme" onmousemove="hidetoltip()"><i class=" fa fa-copy " style="font-size:32px;padding: 3px;"></i></button>
+            <div id="error1"
+            style="margin: 10px ;
+            border-radius: 20px;
+           color: rgb(216, 0, 0);
+           line-height: 40px;
+           text-align: center;
+        background-color: rgb(255, 210, 210);">
+        </div>
+        <div><a onclick="short_another()" class="btn"  style="padding: 12px;color:rgb(38, 0, 255);font-weight: bold; border-radius: 25px;background:rgb(121, 255, 128);font-size: 18px;text-decoration: none;" id="short_another">Short Another Url</a>
+        </div>
+    </div>
+</div>
+    </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+      <section class="steps">
+    <div class="container text-center">
+        <div class="row wow fadeInUp">
+            <div class="col-sm-4">
+                <a href="../signup" style="text-decoration: none;">
+                    <div class="step step1">
+                    <div class="step-img"><i class="ms-sprite ms-sprite-step1"></i></div>
+                    <h4 class="step-heading">Create an account</h4>
+                </div>
+            </a>
+            </div>
+            <div class="col-sm-4">
+                    <a href="../signup" style="text-decoration: none;">
+                <div class="step step2">
+                    <div class="step-img"><i class="ms-sprite ms-sprite-step2"></i></div>
+                    <h4 class="step-heading">Shorten your link</h4>
+                </div>
+            </a>
+            </div>
+            <div class="col-sm-4">
+                    <a href="../signup" style="text-decoration: none;">
+                <div class="step step3">
+                    <div class="step-img"><i class="ms-sprite ms-sprite-step3"></i></div>
+                    <h4 class="step-heading">Earn Money</h4>
+                </div>
+            </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="separator">
+    <div class="container"></div>
+</div>
+
+<section class="features">
+    <div class="container text-center">
+        <div class="section-title wow bounceIn">
+            <h3 class="section-subheading">Earn extra money</h3>
+            <h2 class="section-heading">Why join us?</h2>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap;">
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f1"></i></div>
+                    <h4 class="feature-heading">What is CLICK.NET?</h4>
+                    <div class="feature-content">CLICK.NET is a completely free tool where you can create short links, which apart from being free, you get paid! So, now you can make money from home, when managing and protecting your links.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f2"></i></div>
+                    <h4 class="feature-heading">How and how much do I earn?</h4>
+                    <div class="feature-content">How can you start making money with CLICK.NET? It's just 3 steps: create an account, create a link and post it - for every visit, you earn money. It's just that easy!</div>
+                </div>
+            </div>
+
+                            <div class="col-sm-4 wow fadeInUp">
+                    <div class="feature">
+                        <div class="feature-img"><i class="ms-sprite ms-sprite-f3"></i></div>
+                        <h4 class="feature-heading">20% Referral Bonus</h4>
+                        <div class="feature-content">The CLICK.NET referral program is a great way to spread the word of this great service and to earn even more money with your short links! Refer friends and receive 20% of their earnings for life!</div>
+                    </div>
+                </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f4"></i></div>
+                    <h4 class="feature-heading">Featured Administration Panel</h4>
+                    <div class="feature-content">Control all of the features from the administration panel with a click of a button.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f5"></i></div>
+                    <h4 class="feature-heading">Detailed Stats</h4>
+                    <div class="feature-content">Know your audience. Analyse in detail what brings you the most income and what strategies you should adapt.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f6"></i></div>
+                    <h4 class="feature-heading">Low Minimum Payout</h4>
+                    <div class="feature-content">You are required to earn only $5.00 before you will be paid. We can pay all users via their PayPal.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature last">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f7"></i></div>
+                    <h4 class="feature-heading">Highest Rates</h4>
+                    <div class="feature-content">Make the most out of your traffic with our always increasing rates.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature last">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f8"></i></div>
+                    <h4 class="feature-heading">API</h4>
+                    <div class="feature-content">Shorten links more quickly with easy to use API and bring your creative and advanced ideas to life.</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 wow fadeInUp">
+                <div class="feature last">
+                    <div class="feature-img"><i class="ms-sprite ms-sprite-f9"></i></div>
+                    <h4 class="feature-heading">Support</h4>
+                    <div class="feature-content">A dedicated support team is ready to help with any questions you may have.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title text-center wow bounceIn">
+                <h3 class="section-subheading">Client's Testimonials</h3>
+                <h2 class="section-heading">What People Say?</h2>
+            </div>
+            <div class="testimonials owl-carousel">
+                                    <div class="testimonial">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-quote-left fa-stack-1x fa-inverse"></i>
+                                </span>
+                                </div>
+                                <div class="col-sm-11"><p>Hemant Prajapat : &nbsp;<br />I'm Glad to Use this Webiste. This Website is Really Fabulous</p>
+</div>
+                            </div>
+                        </div>
+
+                    </div>
+                                    <div class="testimonial">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-quote-left fa-stack-1x fa-inverse"></i>
+                                </span>
+                                </div>
+                                <div class="col-sm-11"><p>Pawan Thakur : &nbsp;<br/>Very Good Website for Earning in India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                                    <div class="testimonial">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-quote-left fa-stack-1x fa-inverse"></i>
+                                </span>
+                                </div>
+                                <div class="col-sm-11"><p>Sourav Mehta : &nbsp;<br/>This is realy good website for online earning.</p>
+</div>
+                            </div>
+                        </div>
+
+                    </div>
+                                    <div class="testimonial">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-quote-left fa-stack-1x fa-inverse"></i>
+                                </span>
+                                </div>
+                                <div class="col-sm-11"><p>Gaurav Joshi : &nbsp;<br/>This is Very Good Website for Online Earning & This is Highest Paying Website</p>
+</div>
+                            </div>
+                        </div>
+
+                    </div>
+                                    <div class="testimonial">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-quote-left fa-stack-1x fa-inverse"></i>
+                                </span>
+                                </div>
+                                <div class="col-sm-11"><p>Manish Soni : &nbsp;<br/>Good website for url short and good payout rates</p>
+</div>
+                            </div>
+                        </div>
+
+                    </div>
+                            </div>
+        </div>
+    </section>
+
+<section class="stats">
+    <div class="container">
+        <div class="section-title text-center wow bounceIn">
+            <h3 class="section-subheading">CLICK.NET USER DATA</h3>
+            <h2 class="section-heading">Fast Growing</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 text-center">
+                <div class="stat wow flipInY">
+                    <div class="stat-img">
+                        <i class="ms-sprite ms-sprite-total-clicks"></i>
+                    </div>
+                    <div class="stat-num">
+                        {{allclick}}                  </div>
+                    <div class="stat-text">
+                        Total Clicks                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 text-center">
+                <div class="stat wow flipInY">
+                    <div class="stat-img">
+                        <i class="ms-sprite ms-sprite-total-links"></i>
+                    </div>
+                    <div class="stat-num">
+                        {{alllink}}                    </div>
+                    <div class="stat-text">
+                        Total Links                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 text-center">
+                <div class="stat wow flipInY">
+                    <div class="stat-img">
+                        <i class="ms-sprite ms-sprite-total-users"></i>
+                    </div>
+                    <div class="stat-num">
+                        {{alluser}}                   </div>
+                    <div class="stat-text">
+                        Registered users                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <div class="section-title text-center wow bounceIn">
+            <h3 class="section-subheading">Contact Us</h3>
+            <h2 class="section-heading">Get in touch!</h2>
+        </div>
+
+        <form method="post" action="/contactmsg">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="name">Your Name *</label><input type="text" name="name" required="required" class="form-control" id="name"/>            <p class="help-block text-danger"></p>
+        </div>
+        <div class="form-group">
+            <label for="email">Your Email *</label><input type="text" name="email" required="required" class="form-control" id="email"/>            <p class="help-block text-danger"></p>
+        </div>
+        <div class="form-group">
+            <label for="subject">Your Subject *</label><input type="text" name="subject" required="required" class="form-control" id="subject"/>            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+    {% csrf_token %}
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="message">Your Message *</label><textarea name="message" required="required" class="form-control" id="message" rows="5"></textarea>            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <div class="form-group">
+        <input type="hidden" name="accept" value="0"/><label for="accept"><input type="checkbox" name="accept" value="1" required="required" id="accept"><b>I consent to collect my name and email. For more details check our <a href='pages/privacy.html' target='_blank'>Privacy Policy</a>.</b></label>    </div>
+
+
+            </div>
+
+
+
+    <button class="btn btn-contact btn-captcha" type="submit">Send Message</button></div>
+
+</form>
+
+
+    </div>
+</section>
+
+<footer>
+            <div class="payment-methods">
+            <div class="container text-center">
+                <img src= {% static "img/pay.png" %} alt=""/></div>
+        </div>
+
+
+    <div class="copyright-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 bottom-menu">
+                    <ul class="list-inline">
+                        <li><a href="{% url 'privacy' %}">Privacy Policy</a>
+                        </li>
+                        <li><a href="{% url 'termsofus' %}">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 social-links">
+                    <ul class="list-inline">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a>
+                    </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 copyright">
+                    <div>Copyright &copy; Click.net 2019</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script> 
+var app_vars = {"language":"en_US"} 
+</script>
+
+<script src={% static "js/ads.js" %}></script>
+<script src={% static "js/script.main.js" %}></script>
+<script>
+$(window).load(function() {
+   $('.preloader').fadeOut('slow');
+});
+
+ 
+
+
+</script>
+
+<script>
+        $(document).on('submit','#shorten',function(e){
+            e.preventDefault();
+            
+            $( "#error" ).empty();
+            $( "#error1" ).empty();
+
+            $.ajax({
+                type:'POST',
+                url: '/shorturl/',
+                data:{
+                    url:$('#url').val(),
+                    csrfmiddlewaretoken : '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(d){
+                    
+                    if (Object.keys(d).length == 2){
+                        $('#error').append(d['urlerror']);
+                        $('#shorten input').val(d['url']);
+                    }
+                    else{
+                        if (Object.keys(d).length == 4){
+                            $('#hide').css('display', 'none');
+                            $('#show').css('display', 'unset');
+                            $('#error1').append(d['success']);
+                            $('#shorten input').val(d['url']);
+                            $('#error1').css('background-color', 'rgb(210, 255, 214)');
+                            $('#error1').css('color', 'green');
+                        }
+                        else {
+                            $('#hide').css('display', 'none');
+                            $('#show').css('display', 'unset');
+                            $('#error1').append(d['error']);
+                            $('#shorten input').val(d['url']);
+                            $('#error1').css('background-color', 'rgb(255, 210, 210)');
+                            $('#error1').css('color', 'red');
+                        }
+                    }
+                },
+            //     error: function(xhr, status, error) {
+            //     alert(xhr.responseText);
+            // },
+            });
+        });
+        </script>
+
+<script>
+function setTooltip(message) {
+  $('#copyme').tooltip('hide')
+    .attr('data-original-title', message)
+    .tooltip('show');
+}
+
+function hideTooltip() {
+  setTimeout(function() {
+    $('#copyme').tooltip('hide');
+  }, 2000);
+}
+
+function hidetoltip(){
+    $('#copyme').tooltip('hide');
+}
+
+function copy() {
+  /* Get the text field */
+  var copyText = document.getElementById("surl");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+  setTooltip('Copied!');
+  hideTooltip();
+
+}
+function short_another(){
+    document.getElementById('url').value = '';
+    $( "#error" ).empty();
+    $('#hide').css('display', 'unset');
+    $('#show').css('display', 'none');
+}
+
+
+
+
+
+
+</script>
+</body>
+
+
+
+</html>
+

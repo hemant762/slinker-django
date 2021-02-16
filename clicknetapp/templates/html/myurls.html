@@ -1,0 +1,154 @@
+{% extends 'html/header.html' %}
+{% block head %}
+<title>My Url's</title>
+{% endblock %}
+
+{% block body %}<br/>
+<div class="container-fluid">
+                <div class="row">
+
+             <!-- Column -->
+            <div class="col-md-12 col-lg-12 col-xlg-12">
+                <div class="card">
+
+                    <div class="box text-center" style="padding: 30px 0 50px 0;">
+                            <h3 class="text-black" style="padding: 5px;" >Short Your Url</h3>
+                       <div id="hidethis" style="display: unset;">
+
+                            <form method="POST" id="shortenadmin">
+                        <input style="border: none;
+                        border-radius: 20px;
+                        background: rgba(154, 209, 144, 0.637);
+                        padding: 10px;
+                        width: 80%;
+                        " type="url" placeholder="Enter Your Url" name="url" autocomplete="off" id="url" required/>
+                        <label id="error" style="margin: 10px ;
+                        border-radius: 20px;
+                       color: #D8000C;
+                       line-height: 40px;
+                       text-align: center;
+                       width: 80%;
+                    background-color: #FFD2D2;"></label><br/>
+                        <button class="btn btn-success btn-sm" style="margin: 10px;padding: 10px;" id="submitadmin" type="submit">Short Url</button>
+                        </form>
+                        </div>
+
+                        <div id="showthis" style="display: none">
+                            <div id="showadmin">
+                             <input style="border: none;
+                        border-radius: 20px;
+                        background: rgba(154, 209, 144, 0.637);
+                        padding: 10px;
+                        width: 80%;
+                        " type="url" id="surl" readonly placeholder="Enter Your Url" name="url" required/>
+                        <br/>
+                        <label id="error1" style="margin: 10px ;
+                        border-radius: 20px;
+                       color: #D8000C;
+                       line-height: 40px;
+                       text-align: center;
+                       width: 80%;
+                    background-color: #FFD2D2;"></label><br/>
+                        <button onclick="copy()" class="btn btn-success" id="copyme" onmousemove="hidetoltip()" ><i class=" fa fa-copy " style="font-size:32px;padding: 0px;color:white;"></i></button>
+                        <a class="btn btn-success btn-sm" id="short_another" style="text-align: right; margin: 5px;padding: 10px;color:white;" onclick="short_another()">Short Another Url</a>
+                        <br/>
+
+                           </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <br/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+
+                            <caption><h1 style="text-align:center">Your Short Url List</h1></caption><br/>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+
+    <form id="geturlform" style="display:none"  method="POST">
+
+   <input type="submit" value="Refresh">
+ </form>
+     <div id="forTable">
+
+<div id="loading-image" class="container text-center"><img style="width:100px; hieght:100px;" src="/static/img/ajaxloader.gif"/></div>
+
+</div>
+</div>
+
+
+
+</div>
+
+<script>
+
+$(document).ready(function(){
+
+    $('#geturlform').submit()
+});
+
+$('#geturlform').submit(function(event){
+		event.preventDefault();
+        $.ajax({
+            type:'POST',
+            url: '/geturl/',
+            data:{
+                csrfmiddlewaretoken : "{{ csrf_token }}"
+            },
+            success: function(d){
+                // alert(d['data'][0].username)
+                createtable(d);
+                var table = $('#example').DataTable( {
+                        "order": [[ 0, "desc" ]],
+                        rowReorder: {
+                        selector: 'td:nth-child(2)'
+                        },
+                        responsive: true,
+                        bInfo: false,
+                        "searching": false,
+                        "paging": true,
+                        columnDefs: [{ }],
+                        });
+
+                                },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+});
+function createtable(d){
+    var eTable="<table id = 'example' class='display nowrap'><thead><tr><th style = 'text-align:center'>No.</th><th style = 'text-align:center'>Short Url</th><th style = 'text-align:center'>Click</th><th style = 'text-align:center'>Total Earning</th><th style = 'text-align:center'>Share</th></tr></thead><tbody>"
+
+    for(var i=0; i<d['data'].length; i++)
+  {
+      var id = i+1 ;
+    eTable += "<tr>";
+    eTable += "<td style = 'text-align:center'>"+id+"</td>";
+    eTable += "<td style = 'text-align:center'><a target='_blank' href="+d['data'][i].shorturl+">"+d['data'][i].shorturl+"</a></td>";
+    eTable += "<td style = 'text-align:center'>"+d['data'][i].click+"</td>";
+    eTable += "<td style = 'text-align:center'><strong>"+d['data'][i].earning.toFixed( 2 )+"</strong></td>";
+    eTable += "<td style = 'text-align:center'><a href='https://wa.me/?text="+d['data'][i].shorturl+"' target='_blank'><i class='mdi mdi-share-variant' style='font-size:24px;color:25D366;'></i></a></td>";
+    eTable += "</tr>";
+  }
+  eTable +="</tbody></table>";
+  $('#forTable').html(eTable);
+}
+
+</script>
+{% endblock %}

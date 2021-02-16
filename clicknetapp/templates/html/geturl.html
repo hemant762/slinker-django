@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load static %}
+<title>CLICK.NET</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='favicon.ico' type='image/x-icon' rel='icon'/>
+<link href='favicon.ico' type='image/x-icon' rel='shortcut icon'/>
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href={% static "css/styles.css" %} />
+<style>
+        .preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-image: url('/static/img/loader.gif');
+            background-repeat: no-repeat;
+            background-color: #FFF;
+            background-position: center;
+            }
+            </style>
+</head>
+<body class="inner-page">
+
+
+        <div class="preloader"></div>
+
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo-image" href="../"><img src={% static 'img/logo.png' %} /></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a>
+                </li>
+
+                    <li>
+                        <a href="{% url 'payout_rate' %}"><i class="fa fa-inr"></i> Payout Rates</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}"><i class="fa fa-user-plus"></i> Sign Up</a>
+                    </li>
+
+                            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<!-- Header -->
+<header>
+    <div class="section-inner">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Earn Money Online</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+<div class="box-main" style="border:2px solid rgb(0, 162, 255);">
+    <h3 id='heading'>Your Link Is Almost Rady Please Wait For</h3><br/>
+<span id="countdown" class="countdown">
+        <span id="timer" class="timer">
+            20</span><br>Seconds    </span>
+  <form id="valid" method="POST">
+      {% csrf_token %}
+      <input class="form-control" id="ip" type = "hidden" name="id">
+      <input class="form-control" id="url" type = "hidden" value="{{ data.url }}" name="url">
+    <button type="submit" id="submit" class="btn btn-success" disabled >Verify</button>
+  </form>
+  <a style="display:none" class="btn btn-success" href="{{ data.url }}">Get Link</a>
+
+            </div></div></div></div>
+
+<footer>
+
+
+
+<div class="copyright-container">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 bottom-menu">
+            <ul class="list-inline">
+                <li><a href="{% url 'privacy' %}">Privacy Policy</a>
+                </li>
+                <li><a href="{% url 'termsofus' %}">Terms of Use</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-4 social-links">
+            <ul class="list-inline">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus"></i></a>
+            </li>
+            </ul>
+        </div>
+        <div class="col-sm-4 copyright">
+            <div>Copyright &copy; Click.net 2019</div>
+
+        </div>
+    </div>
+</div>
+</div>
+</footer>
+
+
+<script src={% static "js/ads.js" %}></script>
+<script src={% static "js/script.main.js" %}></script>
+<script>
+let downloadTimer;
+var timeleft = 20;
+downloadTimer = setInterval(countDown,1000)
+function countDown(){
+  document.getElementById("timer").innerHTML = timeleft ;
+  timeleft -= 1;
+  if(timeleft < 0){
+	clearInterval(downloadTimer);
+	document.getElementById("timer").innerHTML = "0"
+	$("#submit").removeAttr("disabled");
+  }
+}
+
+$(window).blur(function(){
+  console.log("blurred")
+  clearInterval(downloadTimer);
+})
+$(window).focus(function(){
+	console.log("focuesed")
+	downloadTimer = setInterval(countDown,1000);
+})
+
+
+
+
+        $(window).load(function() {
+          $('.preloader').fadeOut('slow');
+        });
+        </script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+
+
+ $(document).ready(function() {
+
+
+    $.getJSON("http://jsonip.com/?callback=?", function (data) {
+        console.log(data);
+
+        $('#valid #ip').val(data.ip);
+    });
+
+
+});
+    $(document).on('submit','#valid',function(e){
+        e.preventDefault();
+        document.getElementById("submit").innerHTML = "Please Wait.."
+        $("#submit").attr("disabled", true);
+        $.ajax({
+            type:'POST',
+            url: '/getip/',
+            data:{
+                url:$('#url').val(),
+                ip:$('#ip').val(),
+                csrfmiddlewaretoken : "{{ csrf_token }}"
+            },
+            success: function(){
+                $("form").hide();
+                $("a").show();
+                $("#countdown").css("display", "none");
+                document.getElementById("heading").innerHTML = "Your Link Is Rady"
+
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+{% extends 'html/header.html' %}
+{% block head %}
+<title>Account Setting</title>
+{% load static %}
+<!-- <link rel="stylesheet" href={% static "css/bootstrap.css" %}> -->
+<style>
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 20px
+}
+</style>
+{% endblock %}
+
+
+{% block body%}
+
+<br>
+    <div class="container">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" onsubmit=" document.getElementById('addresssubmit').innerHTML = 'Please Wait...';submit.disabled = true;return(validate()); ">
+
+        <div class="accordion" id="accordionExample">
+                <div class="card m-b-0">
+                    <div class="card-header text-center" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                            <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>
+                            <span>Complit Your Profile</span>
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" >
+                      <div class="card-body">
+                            <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div id="error"
+                                                    style="margin: 10px ;
+                                                    border-radius: 20px;
+                                                   color: #D8000C;
+                                                   line-height: 40px;
+                                                   text-align: center;
+                                                background-color: #FFD2D2;">{{ error }}
+                                                   </div>
+                                                   <div id="error"
+                                                    style="margin: 10px ;
+                                                    border-radius: 20px;
+                                                   color: rgb(0, 216, 29);
+                                                   line-height: 40px;
+                                                   text-align: center;
+                                                background-color: rgb(217, 255, 210);">{{ success }}
+                                                   </div>
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Personal Info</h4>
+                                                    <div class="form-group m-t-20">
+                                                            <label>User Name</label>
+                                                            <input type="text" readonly value="{{ user.username}}" class="form-control date-inputmask" required name="student" placeholder="Student Name Here">
+                                                        </div>
+                                                        {% csrf_token %}
+                                                        <div class="form-group m-t-20">
+                                                                <label>Email<small class="text-muted"></small></label>
+                                                                <input type="text" readonly value="{{ user.email}}" class="form-control date-inputmask" required  name="father" placeholder="Father Name Here">
+                                                </div>
+                            <div id="disp" style="display:none">
+                            <div class="box text-center" >
+                                <img style="max-width:300px;max-height:300px;-moz-border-radius:50%;
+    -webkit-border-radius:50%; border:2px solid black;border-radius:50%" id="output_image"/>
+                                </div></div>
+<br/>
+<div class="text-center">
+    <label for="file-upload" class="custom-file-upload btn btn-success">
+    <i class="mdi mdi-cloud-upload"></i> Upload Profile Picture
+</label>
+<input id="file-upload" type="file"  accept="image/*" name='profileimg' onchange="preview_image(event)"/>
+</div>
+
+</div>
+
+
+
+                                    </div>
+
+                                </div>
+                      </div>
+                    </div>
+                </div>
+
+
+            </div>
+             <br>
+            <div class="accordion" id="accordionExample">
+                    <div class="card m-b-0">
+                        <div class="card-header text-center" id="headingOne">
+                          <h5 class="mb-0">
+                            <a data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                                <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>
+                                <span>Billing Address</span>
+                            </a>
+                          </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" >
+                          <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                            <div class="card-body">
+                                                <div class="form-group m-t-20">
+                                                    <label>Full Name<small class="text-muted"></small></label>
+                                                    <input type="text" class="form-control date-inputmask" required minlength="10" maxlength="10"  name="name" placeholder="Full Name">
+                                                </div>
+                                                <div class="form-group m-t-20">
+                                                        <label>Full Address<small class="text-muted"></small></label>
+                                                        <input type="text" class="form-control date-inputmask" required name="adr" placeholder="Address">
+                                                    </div>
+
+                                                    <div class="form-group m-t-20">
+                                                        <label>State<small class="text-muted"></small></label>
+                                                        <input type="text" class="form-control date-inputmask" required name="state" placeholder="State">
+                                                    </div>
+
+                                                    <div class="form-group m-t-20">
+                                                        <label>Zip Code<small class="text-muted"></small></label>
+                                                        <input class="form-control date-inputmask" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        type = "number"
+                                                        maxlength = "6" name="zip" placeholder="Zip Code">
+                                                    </div>
+                                                    <div class="form-group m-t-20">
+                                                        <label>Phone No.<small class="text-muted"></small></label>
+                                                        <input class="form-control date-inputmask"  name="phone" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                                        type = "number"
+                                                        maxlength = "10"  placeholder="Phone Number">
+                                                    </div>
+
+
+
+
+                                            </div>
+                                            <div class="border-top">
+                                                <div class="card-body">
+                                                    <button type="submit" id="addresssubmit" name="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                </form>
+        </div>
+
+<br/>
+<footer class="footer text-center">
+All Rights Reserved by Click.net <a href="../">Click.net</a>.
+</footer>
+</div>
+
+
+ <script>
+     function validate(){
+    var inp = document.getElementById('file-upload');
+    if(inp.files.length == 0){
+        alert("Please Select Your Profile Picture");
+   inp.focus();
+   document.getElementById('addresssubmit').innerHTML = 'Submit';
+   $("#addresssubmit").removeAttr('disabled');
+    return false;
+    }
+}
+ </script>
+<script type='text/javascript'>
+function preview_image(event)
+{
+ var reader = new FileReader();
+ reader.onload = function()
+ {
+  var output = document.getElementById('output_image');
+  output.src = reader.result;
+  $('#disp').css('display', 'unset');
+ }
+ reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+{% endblock %}

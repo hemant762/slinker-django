@@ -1,0 +1,86 @@
+{% extends 'html/header.html' %}
+    {% block body %}
+<!--         <form method="POST" enctype="multipart/form-data" onsubmit="return(validate());">-->
+<!--    {% csrf_token %}-->
+<!--   <input type="file" name="myfile" id="upload">-->
+<!--   <button type="submit">Upload</button>-->
+<!-- </form>-->
+
+
+<!-- <script>-->
+<!--     function validate(){-->
+<!--    var inp = document.getElementById('upload');-->
+<!--    if(inp.files.length == 0){-->
+<!--        alert("Attachment Required");-->
+<!--   inp.focus();-->
+<!--    return false;-->
+<!--    }-->
+<!--}-->
+<!-- </script>-->
+ <form id="myForm" style="display:none" method="POST">
+
+   <input type="submit" value="Refresh">
+ </form>
+
+<div id="forTable">
+
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+
+    $('#myForm').submit()
+});
+
+$('#myForm').submit(function(event){
+		event.preventDefault();
+        $.ajax({
+            type:'POST',
+            url: '/refresh/',
+            data:{
+                csrfmiddlewaretoken : "{{ csrf_token }}"
+            },
+            success: function(d){
+                // alert(d['data'][0].username)
+                createtable(d);
+                var table = $('#example').DataTable( {
+                        "order": [[ 0, "desc" ]],
+                        rowReorder: {
+                        selector: 'td:nth-child(2)'
+                        },
+                        responsive: true,
+                        bInfo: false,
+                        "searching": false,
+                        "paging": true,
+                        columnDefs: [{ }],
+                        });
+
+                                },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+});
+function createtable(d){
+    var eTable="<table id = 'example' class='display nowrap'><thead><tr><th>No.</th><th>Name</th><th>Title</th><th>Salary</th</tr></thead><tbody>"
+
+    for(var i=0; i<d['data'].length; i++)
+  {
+      var id = i+1 ;
+    eTable += "<tr>";
+    eTable += "<td>"+id+"</td>";
+    eTable += "<td>"+d['data'][i].username+"</td>";
+    eTable += "<td>"+d['data'][i].password+"</td>";
+    eTable += "<td>"+d['data'][i].email+"</td>";
+    eTable += "</tr>";
+  }
+  eTable +="</tbody></table>";
+  $('#forTable').html(eTable);
+}
+
+</script>
+
+
+   {% endblock %}>

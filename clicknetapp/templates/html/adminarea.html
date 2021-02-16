@@ -1,0 +1,93 @@
+
+{% extends 'html/header.html' %}
+{% block head %}
+<title>Admin Area</title>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+
+                            <caption><h1 style="text-align:center">Payment Tabel</h1></caption><br/>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+<table id="example" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Username</th>
+                <th>Amount</th>
+                <th>Payment Address</th>
+                <th>Ifsc</th>
+                <th>Payment Mode</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td></td>
+                <td>{{ i.user.username }}</td>
+                <td>{{ i.amount }}</td>
+                <td>{{ i.paddress }}</a></td>
+                <td>{{ i.ifsc }}</a></td>
+                <td>{{ i.paymentmode_id }}</td>
+                <td>{{ i.redeem_date }}</td>
+                <td><a class="btn btn-success" href="../success/{{ i.id }}">Success</a>&nbsp;<a class="btn btn-danger" href="../cancel/{{ i.id }}">Cancel</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</tbody>
+
+    </table>
+</div>
+
+<div class="">
+<table id="alluser" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Refer Code</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Status</th>
+                <th>Block Status</th>
+                <th>Referred By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in alluser %}
+            <tr>
+                <td></td>
+                <td>{{ user.refercode }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.is_active }}</td>
+                <td>{{ user.is_block }}</td>
+                <td>{{ user.referredby }}</td>
+                <td><a class="btn btn-success" href="../block/{{ user.id }}">Block User</a></td>
+
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+</tbody>
+
+    </table>
+</div>
+
+{% endblock %}

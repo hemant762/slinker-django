@@ -1,0 +1,45 @@
+{% extends 'html/header.html' %}
+
+{% block head %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<title>My Profile</title>
+
+{% load static %}
+{% endblock %}
+
+{% block body %}
+
+
+<br/><br/>
+<div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="well well-sm">
+                    <div class="row">
+                                
+                        <div class="col-sm-6 col-md-4">
+                            <img  src="{{user.img.url}}" alt="" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="col-sm-6 col-md-7" >
+                    
+                <p style="text-align: left;padding: 10px;margin-top : 25px;font-size: 18px;font-weight: bold;">  
+                                <i class="fas fa-user" style="color: rgb(37, 171, 233)"></i> User Name : {{user.username}}
+                        </p>
+                        <p style="text-align: left;padding: 10px;margin-top : 25px;font-size: 18px;font-weight: bold;">  
+                                        <i class="fas fa-envelope" style="color: rgb(37, 171, 233)"></i> Email : {{user.email}}
+                                </p>
+                                <p style="text-align: left;padding: 10px;margin-top : 25px;font-size: 18px;font-weight: bold;">  
+                                                <i class="fas fa-handshake" style="color: rgb(37, 171, 233)"></i> Refer By : {{referuser}}
+                                        </p>
+                                        <p style="text-align: left;padding: 10px;margin-top : 25px;font-size: 18px;font-weight: bold;">  
+                                                        <i class="fas fa-link" style="color: rgb(37, 171, 233)"></i> Your Refer Link : <a target="_blank" href="http://hp30405.pythonanywhere.com?refer={{user.refercode}}" style="text-align: left;padding: 0;margin: 0; font-size: 15px;font-weight: lighter;">http://hp30405.pythonanywhere.com?refer={{user.refercode}}</a>
+                                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+{% endblock %}
